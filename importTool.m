@@ -44,40 +44,40 @@ theFilesHammerC2 = dir(fileStructHammerC2);
 for i = 1:length(theFiles);
     dataFile{i} = theFiles(i).name;
     fullFileName{i} = fullfile(dataFolder, dataFile{i}); %fullfile builds the full file name from parts, takes the given file path of folder and data file
-    fileDataList{i} = fullFileName{i};
+%    fileDataList{i} = fullFileName{i};
 end
 
 for f = 1:length(theFilesForkC1);
     forkFileC1{f} = theFilesForkC1(f).name;
     fullFileNameForkC1{f} = fullfile(dataFolder, forkFileC1{f}); %fullfile builds the full file name from parts, takes the given file path of folder and data file
-    fileForkListC1{f} = fullFileNameForkC1{f};
+%    fileForkListC1{f} = fullFileNameForkC1{f};
 end
 for f = 1:length(theFilesForkC2);
     forkFileC2{f} = theFilesForkC2(f).name;
     fullFileNameForkC2{f} = fullfile(dataFolder, forkFileC2{f}); %fullfile builds the full file name from parts, takes the given file path of folder and data file
-    fileForkListC2{f} = fullFileNameForkC2{f};
+%    fileForkListC2{f} = fullFileNameForkC2{f};
 end
 
 for m = 1:length(theFilesMilkC1);
     milkFileC1{m} = theFilesMilkC1(m).name;
     fullFileNameMilkC1{m} = fullfile(dataFolder, milkFileC1{m}); %fullfile builds the full file name from parts, takes the given file path of folder and data file
-    fileMilkListC1{m} = fullFileNameMilkC1{m};
+%    fileMilkListC1{m} = fullFileNameMilkC1{m};
 end
 for m = 1:length(theFilesMilkC2);
     milkFileC2{m} = theFilesMilkC2(m).name;
     fullFileNameMilkC2{m} = fullfile(dataFolder, milkFileC2{m}); %fullfile builds the full file name from parts, takes the given file path of folder and data file
-    fileMilkListC2{m} = fullFileNameMilkC2{m};
+%    fileMilkListC2{m} = fullFileNameMilkC2{m};
 end
 
 for h = 1:length(theFilesHammerC1);
     hammerFileC1{h} = theFilesHammerC1(h).name;
     fullFileNameHammerC1{h} = fullfile(dataFolder, hammerFileC1{h}); %fullfile builds the full file name from parts, takes the given file path of folder and data file
-    fileHammerListC1{h} = fullFileNameHammerC1{h};
+%    fileHammerListC1{h} = fullFileNameHammerC1{h};
 end
 for h = 1:length(theFilesHammerC2);
     hammerFileC2{h} = theFilesHammerC2(h).name;
     fullFileNameHammerC2{h} = fullfile(dataFolder, hammerFileC2{h}); %fullfile builds the full file name from parts, takes the given file path of folder and data file
-    fileHammerListC2{h} = fullFileNameHammerC2{h};
+%    fileHammerListC2{h} = fullFileNameHammerC2{h};
 end
 %import each condition into a seperate structure
 % % % fileStructCondition1 = fullfile(dataFolder, 'P1C1*.txt');
