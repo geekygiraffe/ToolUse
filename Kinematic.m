@@ -64,6 +64,28 @@ plot(forkTrialsC2(2).data(:,2:4),'--')
 plot(forkTrialsC2(3).data(:,2:4),'--')
 hold off
 
+%% seperate joint segments
+for i = 1:18
+trunk(i) = totalTrials(:,i).data(:,2:4);
+shoulderR(i) = totalTrials(:,i).data(:,5:7);
+elbowR(i) = totalTrials(:,i).data(:,8:10);
+wristR(i) = totalTrials(:,i).data(:,11:13);
+shoulderL(i) = totalTrials(:,i).data(:,14:16);
+elbowL(i) = totalTrials(:,i).data(:,17:19);
+wristL(i) = totalTrials(:,i).data(:,20:22);
+shoulderLglobal(i) = totalTrials(:,i).data(:,23:25);
+shoulderRglobal(i) = totalTrials(:,i).data(:,26:28);
+elbowLglobal(i) = totalTrials(:,i).data(:,29:31);
+elbowRglobal(i) = totalTrials(:,i).data(:,32:34);
+wristLglobal(i) = totalTrials(:,i).data(:,35:37);
+wristRglobal(i) = totalTrials(:,i).data(:,38:40)
+end
+% % % % % 
+% % % % % trials = 3
+% % % % % for i = 1:trials
+% % % % %     
+% % % % % end
+
 
 %% seperate joint segments
 % arrange the four marker data vectors from each segment plate in one cell per segment with all the plane (x,y,z) averages

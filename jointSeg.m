@@ -1,0 +1,16 @@
+function [trunk, shoulderR, shoulderL, elbowR, elbowL, wristR, wristL] = jointSeg (condition)
+
+trunk = totalTrials(:,1).data(:,2:4)
+shoulderR = totalTrials(:,1).data(:,5:7)
+elbowR = totalTrials(:,1).data(:,8:10)
+wristR = totalTrials(:,1).data(:,11:13)
+shoulderL = totalTrials(:,1).data(:,14:16)
+elbowL = totalTrials(:,1).data(:,17:19)
+wristL = totalTrials(:,1).data(:,20:22)
+shoulderLglobal = totalTrials(:,1).data(:,23:25)
+shoulderRglobal = totalTrials(:,1).data(:,26:28)
+elbowLglobal = totalTrials(:,1).data(:,29:31)
+elbowRglobal = totalTrials(:,1).data(:,32:34)
+wristLglobal = totalTrials(:,1).data(:,35:37)
+wristRglobal = totalTrials(:,1).data(:,38:40)
+end
