@@ -21,26 +21,41 @@
 %created by Jessica McDonnell December 1, 2016
 
 %% call function to import file from motion monitor
-
-%[P1SensorExport] = importMMfile('P1_sensorExport.txt', 11, 1209);
-%%[sensorExport] = importMMfile('P1_sensorExport.txt', 11, 111);
-
-function [ dataFolder, dataFile, cond1File, cond2File, theFiles, theFilesC1, theFilesC2, fullFileName, fullFileNameCond1, fullFileNameCond2, fileDataList, fileCondList1, fileCondList2] = importTool;
+[dataFolder,dataFile,theFiles,forkFile,milkFile,hammerFile,fullFileName,fullFileNameFork,fullFileNameMilk,fullFileNameHammer,fileDataList,fileForkList, fileMilkList, fileHammerList] = importTool;
+%[dataFolder, dataFile, cond1File, cond2File, theFiles,  theFilesC1, theFilesC2, forkFile, milkFile, hammerFile, fullFileName, fullFileNameCond1, fullFileNameCond2, fullFileNameFork, fullFileNameMilk, fullFileNameHammer, fileDataList, fileCondList1, fileCondList2, fileForkList, fileMilkList, fileHammerList] = importTool;
+%function [ dataFolder, dataFile, cond1File, cond2File, dataFiles, theFilesC1, theFilesC2, fullFileName, fullFileNameCond1, fullFileNameCond2, fileDataList, fileCondList1, fileCondList2] = importTool;
 %[dataFile, dataFolder, theFiles, fullFileName, fileDataList] = importTool;
 
 %loop through imported file folder and pull in data files into cell
 %'subject trials'
 
-for i = 1:length(theFiles)
+for i = 1:length(dataFile)
 totalTrials(i) = importdata(fullFileName{1,i})';
-% taskTrials =
-% conditionTrials = 
 %need to normalize collection time to put frame numbers in cell
 %virtual event markers in MM (manual) or user defined
 
 %%frame(i) = subjectTrials(i).data(:,1); 
 end
+% % % % %sort data according to condition
+% % % % for j = 1:length(cond1File)
+% % % % cond1Trials(j) = importdata(fullFileNameCond1{1,j})';
+% % % % end
+% % % % 
+% % % % for k = 1:length(cond2File)
+% % % % cond2Trials(k) = importdata(fullFileNameCond2{1,k})';
+% % % % end
 
+for f = 1:length(forkFile)
+forkTrials(f) = importdata(fullFileNameFork{1,f})';
+end
+
+for m = 1:length(milkFile)
+milkTrials(m) = importdata(fullFileNameMilk{1,m})';
+end
+
+for h = 1:length(hammerFile)
+hammerTrials(h) = importdata(fullFileNameHammer{1,h})';
+end
 %sort data according to various variables
 
 %% seperate joint segments
