@@ -21,7 +21,7 @@
 
 %% call function to import file from motion monitor
 tic
-[P1SensorExport] = importMMfile('P1_SensorExport.txt', 11, 1209);
+[P1SensorExport] = importMMfile('P1_SensorExport.txt', 11, 20);
 %[P1SensorExport] = importMMfile('P1_SensorExport.txt', 11, 100);
 %% seperate joint segments
 % arrange the four marker data vectors from each segment plate in one cell per segment with all the plane (x,y,z) averages
@@ -66,10 +66,10 @@ lForearmZ = P1SensorExport(:,82:85);
 [trunkP1, trunkP2, trunkP3, trunkP4] = xyz2mat (trunkX, trunkY, trunkZ);
 [rArmP1, rArmP2, rArmP3, rArmP4] = xyz2mat (rArmX, rArmY, rArmZ);
 [rForearmP1, rForearmP2, rForearmP3, rForearmP4] = xyz2mat (rForearmX, rForearmY, rForearmZ);
-% [rHandP1, rHandP2, rHandP3, rHandP4] = xyz2mat (rHandX, rHandY, rHandZ);
+[rHandP1, rHandP2, rHandP3, rHandP4] = xyz2mat (rHandX, rHandY, rHandZ);
 [lArmP1, lArmP2, lArmP3, lArmP4] = xyz2mat (lArmX, lArmY, lArmZ);
 [lForearmP1, lForearmP2, lForearmP3, lForearmP4] = xyz2mat (lForearmX, lForearmY, lForearmZ);
-% [lHandP1, lHandP2, lHandP3, lHandP4] = xyz2mat (lHandX, lHandY, lHandZ);
+[lHandP1, lHandP2, lHandP3, lHandP4] = xyz2mat (lHandX, lHandY, lHandZ);
 
 %% 2D line
 %call y= mx+b function ('twoDline')
@@ -79,19 +79,58 @@ lForearmZ = P1SensorExport(:,82:85);
 [slope, yint, lineP3trunk, parallelLineP3trunk] = twoDline(trunkP1(:,1), trunkP1(:,2), trunkP3(:,1), trunkP3(:,2), trunkP3);
 [slope, yint, lineP4trunk, parallelLineP4trunk] = twoDline(trunkP1(:,1), trunkP1(:,2), trunkP4(:,1), trunkP4(:,2), trunkP4);
 
+[slope, yint, lineP1rArm, parallelLineP1rArm] = twoDline(rArmP1(:,1), rArmP1(:,2), rArmP2(:,1), rArmP2(:,2), rArmP1);
+[slope, yint, lineP2rArm, parallelLineP2rArm] = twoDline(rArmP2(:,1), rArmP2(:,2), rArmP3(:,1), rArmP3(:,2), rArmP2);
+[slope, yint, lineP3rArm, parallelLineP3rArm] = twoDline(rArmP1(:,1), rArmP1(:,2), rArmP3(:,1), rArmP3(:,2), rArmP3);
+[slope, yint, lineP4rArm, parallelLineP4rArm] = twoDline(rArmP1(:,1), rArmP1(:,2), rArmP4(:,1), rArmP4(:,2), rArmP4);
+
 figure(01)
+subplot (2,1,1)
 plot(lineP1trunk) %blue
 hold on
 plot(lineP2trunk) %red
 plot(lineP3trunk) %yellow
 plot(lineP4trunk) %purp
+title('Two Dimension Line Trunk');
+xlabel('Time');
+ylabel('Position');
+legend('Point 1','Point 2','Point 3','Point 4');
 
-title('Two Dimension Line');
+subplot(2,1,2)
+plot(lineP1rArm) %blue
+hold on
+plot(lineP2rArm) %red
+plot(lineP3rArm) %yellow
+plot(lineP4rArm) %purp
+title('Two Dimension Line Right Arm');
 xlabel('Time');
 ylabel('Position');
 legend('Point 1','Point 2','Point 3','Point 4');
 hold off
 
+%POSITION
+figure (03);
+subplot(4,1,1)
+plot(frame,rArmP1(:,1))
+ylabel 'position'
+
+%VELOCITY
+[v]=derivative(rArmP1(:,1),frame);
+subplot(4,1,2)
+plot(frame,v)
+ylabel 'velocity'
+
+%ACCELERATION
+[a] = derivative(v,frame);
+subplot(4,1,3)
+plot (frame,a)
+ylabel 'acceleration'
+
+%JERK
+[j] = derivative(a,frame);
+subplot(4,1,4)
+plot (frame,j)
+ylabel 'jerk'
 %% 3D line
 %call threePointPlane fucntion to calculate 3d line, define plane and solve 3D line equation
 % R^3 = r +tv = (x, y, z) + t(a,b,c)
@@ -134,7 +173,7 @@ ylabel('Y axis');
 zlabel('Z axis');
 hold off
 
-[] = plotExport (figure(02),'Trunk','tif')
+%[] = plotExport (figure(02),'Trunk','tif')
 
 
 %Right Arm

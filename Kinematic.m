@@ -86,7 +86,6 @@ end
 % % % % %     
 % % % % % end
 
-
 %% seperate joint segments
 % arrange the four marker data vectors from each segment plate in one cell per segment with all the plane (x,y,z) averages
 %{
@@ -299,7 +298,5 @@ else
 end
 
 %toc
-
 %%BUG CHECK fucntion
-
 %}
