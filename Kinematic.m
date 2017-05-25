@@ -21,40 +21,46 @@
 %created by Jessica McDonnell December 1, 2016
 
 %% call function to import file from motion monitor
-[dataFolder,theFiles, dataFile, forkFileC1, forkFileC2, milkFileC1, milkFileC2, hammerFileC1, hammerFileC2, fullFileName, fullFileNameForkC1, fullFileNameMilkC1, fullFileNameHammerC1, fullFileNameForkC2, fullFileNameMilkC2, fullFileNameHammerC2] = importTool;
+%[dataFolder,theFiles, dataFile, forkFileC1, forkFileC2, milkFileC1, milkFileC2, hammerFileC1, hammerFileC2, fullFileName, fullFileNameForkC1, fullFileNameMilkC1, fullFileNameHammerC1, fullFileNameForkC2, fullFileNameMilkC2, fullFileNameHammerC2] = importTool;
+%[dataFolder, theFiles, theFilesForkC1, theFilesForkC2, theFilesMilkC1, theFilesMilkC2, theFilesHammerC1, theFilesHammerC2, fullFileName] = importTool;
+[dataFolder, theFiles, theFilesForkC1, theFilesForkC2, theFilesMilkC1, theFilesMilkC2, theFilesHammerC1, theFilesHammerC2, fullFileName, fullFileNameForkC1, fullFileNameForkC2, fullFileNameMilkC1, fullFileNameMilkC2, fullFileNameHammerC1, fullFileNameHammerC2] = importTool;
 
-for i = 1:length(dataFile)
+for i = 1:length(theFiles)
 totalTrials(i) = importdata(fullFileName{1,i})';
 % % need to normalize collection time to put frame numbers in cell
 % % virtual event markers in MM (manual) or user defined
 % & % frame(i) = subjectTrials(i).data(:,1); 
 end
 
-for f = 1:length(forkFileC1)
+for f = 1:length(theFilesForkC1)
 forkTrialsC1(f) = importdata(fullFileNameForkC1{1,f})';
 end
 
-for f = 1:length(forkFileC2)
+for f = 1:length(theFilesForkC2)
 forkTrialsC2(f) = importdata(fullFileNameForkC2{1,f})';
 end
 
-for m = 1:length(milkFileC1)
+for m = 1:length(theFilesMilkC1)
 milkTrialsC1(m) = importdata(fullFileNameMilkC1{1,m})';
 end
-for m = 1:length(milkFileC2)
+for m = 1:length(theFilesMilkC2)
 milkTrialsC2(m) = importdata(fullFileNameMilkC2{1,m})';
 end
 
-for h = 1:length(hammerFileC1)
+for h = 1:length(theFilesHammerC1)
 hammerTrialsC1(h) = importdata(fullFileNameHammerC1{1,h})';
 end
-for h = 1:length(hammerFileC1)
-hammerTrialsC1(h) = importdata(fullFileNameHammerC1{1,h})';
+for h = 1:length(theFilesHammerC2)
+hammerTrialsC2(h) = importdata(fullFileNameHammerC2{1,h})';
 end
 
-%sanity check - plot xyz variables of a segment for both conditions
-%condition one (no tool)
-plot(forkTrialsC1(1).data(:,2:4),'-') %x Blue %y orange %z yellow
+%% sanity check - plot xyz variables of a segment for both conditions
+
+choice = menu('Would you like to plot your data?: Press yes no','Yes','No');
+    if choice == 2
+else
+%condition one (no tool) %x Blue %y orange %z yellow
+plot(forkTrialsC1(1).data(:,2:4),'-') 
 hold on
 plot(forkTrialsC1(2).data(:,2:4),'-')
 plot(forkTrialsC1(3).data(:,2:4),'-')
@@ -62,30 +68,44 @@ plot(forkTrialsC1(3).data(:,2:4),'-')
 plot(forkTrialsC2(1).data(:,2:4),'--')
 plot(forkTrialsC2(2).data(:,2:4),'--')
 plot(forkTrialsC2(3).data(:,2:4),'--')
+legend('- no tool','- - tool')
 hold off
-
+    end
+    
 %% seperate joint segments
-for i = 1:18
-trunk(i) = totalTrials(:,i).data(:,2:4);
-shoulderR(i) = totalTrials(:,i).data(:,5:7);
-elbowR(i) = totalTrials(:,i).data(:,8:10);
-wristR(i) = totalTrials(:,i).data(:,11:13);
-shoulderL(i) = totalTrials(:,i).data(:,14:16);
-elbowL(i) = totalTrials(:,i).data(:,17:19);
-wristL(i) = totalTrials(:,i).data(:,20:22);
-shoulderLglobal(i) = totalTrials(:,i).data(:,23:25);
-shoulderRglobal(i) = totalTrials(:,i).data(:,26:28);
-elbowLglobal(i) = totalTrials(:,i).data(:,29:31);
-elbowRglobal(i) = totalTrials(:,i).data(:,32:34);
-wristLglobal(i) = totalTrials(:,i).data(:,35:37);
-wristRglobal(i) = totalTrials(:,i).data(:,38:40)
-end
-% % % % % 
-% % % % % trials = 3
-% % % % % for i = 1:trials
-% % % % %     
-% % % % % end
+[trunkForkC1, shoulderRForkC1, shoulderLForkC1, elbowRForkC1, elbowLForkC1, wristRForkC1, wristLForkC1] = jointSeg (forkTrialsC1);
+[trunkForkC2, shoulderRForkC2, shoulderLForkC2, elbowRForkC2, elbowLForkC2, wristRForkC2, wristLForkC2] = jointSeg (forkTrialsC2);
+[trunkMilkC1, shoulderRMilkC1, shoulderLMilkC1, elbowRMilkC1, elbowLMilkC1, wristRMilkC1, wristLMilkC1] = jointSeg (milkTrialsC1);
+[trunkMilkC2, shoulderRMilkC2, shoulderLMilkC2, elbowRMilkC2, elbowLMilkC2, wristRMilkC2, wristLMilkC2] = jointSeg (milkTrialsC2);
+[trunkHammerC1, shoulderRHammerC1, shoulderLHammerC1, elbowRHammerC1, elbowLHammerC1, wristRHammerC1, wristLHam1erC2] = jointSeg (hammerTrialsC1);
+[trunkHammerC2, shoulderRHammerC2, shoulderLHammerC2, elbowRHammerC2, elbowLHammerC2, wristRHammerC2, wristLHammerC2] = jointSeg (hammerTrialsC2);
 
+%% Call derivative function to calaculate Position, Velocity, Jerk
+[derivativeTrunkY] = derivative(trunkForkC1{1,1}(:,2),trunkT1);
+
+%POSITION
+figure (03);
+subplot(4,1,1)
+plot(trunkT1,trunkForkC1{1,1}(:,2))
+ylabel 'position'
+
+%VELOCITY
+[v]=derivative(trunkForkC1{1,1}(:,2),trunkT1);
+subplot(4,1,2)
+plot(trunkT1,v)
+ylabel 'velocity'
+
+%ACCELERATION
+[a] = derivative(v,trunkT1);
+subplot(4,1,3)
+plot (trunkT1,a)
+ylabel 'acceleration'
+
+%JERK
+[j] = derivative(a,trunkT1);
+subplot(4,1,4)
+plot (trunkT1,j)
+ylabel 'jerk'
 %% seperate joint segments
 % arrange the four marker data vectors from each segment plate in one cell per segment with all the plane (x,y,z) averages
 %{

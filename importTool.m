@@ -1,43 +1,51 @@
+function [dataFolder, theFiles, theFilesForkC1, theFilesForkC2, theFilesMilkC1, theFilesMilkC2, theFilesHammerC1, theFilesHammerC2, fullFileName, fullFileNameForkC1, fullFileNameForkC2, fullFileNameMilkC1, fullFileNameMilkC2, fullFileNameHammerC1, fullFileNameHammerC2] = importTool;
+
 %function [dataFolder, dataFile, cond1File, cond2File, theFiles, theFilesC1, theFilesC2, fullFileName, fullFileNameCond1, fullFileNameCond2, fileDataList, fileCondList1, fileCondList2] = importTool;
-function [dataFolder, dataFile, theFiles, forkFileC1, forkFileC2, milkFileC1, milkFileC2, hammerFileC1, hammerFileC2, fullFileName, fullFileNameForkC1, fullFileNameMilkC1, fullFileNameHammerC1, fullFileNameForkC2, fullFileNameMilkC2, fullFileNameHammerC2, fileDataList, fileForkListC1, fileMilkListC1, fileHammerListC1, fileForkListC2, fileMilkListC2, fileHammerListC2] = importTool;
+% function [dataFolder, dataFile, theFiles, forkFileC1, forkFileC2, milkFileC1, milkFileC2, hammerFileC1, hammerFileC2, fullFileName, fullFileNameForkC1, fullFileNameMilkC1, fullFileNameHammerC1, fullFileNameForkC2, fullFileNameMilkC2, fullFileNameHammerC2, fileDataList, fileForkListC1, fileMilkListC1, fileHammerListC1, fileForkListC2, fileMilkListC2, fileHammerListC2] = importTool;
+%function [dataFolder, dataFile, theFiles] = importTool;
 %[dataFolder, dataFile, cond1File, cond2File, theFiles,  theFilesC1, theFilesC2, forkFile, milkFile, hammerFile, fullFileName, fullFileNameCond1, fullFileNameCond2, fullFileNameFork, fullFileNameMilk, fullFileNameHammer, fileDataList, fileCondList1, fileCondList2, fileForkList, fileMilkList, fileHammerList] = importTool;
-% function imports all .txt files within folder specified by 'dataFolder'
+% function imports all .txt (*.EXP) files within folder specified by 'dataFolder'
 % will need to adjust '...\Data\XXXX' folder based on data being analyzed.
 % ! should be able to have that as an input for function!%
 % Data is imported as a structure 'subjectTrials' within script with data
 % fields as data, text data which is the header, colheaders which is the
 % order of the variables exported from Motion Moniter
 
-% @geekyGiraffe 1/31/2017
+% @geekyGiraffe 1/31/2017 modified 5/2017
 %%
 % % 'dataFolder' --> file path to subject data
 % ! uiget to mousclick to desitination (multiple user friendly)
-% % 'fileStruct' --> grabs all the files with designated format within specificed dataFolder %[indicated by *.zzz]-wildcard
+% % 'fileStruct' --> grabs all the files with designated format within specificed dataFolder %[indicated by *.zzz]-*wildcard
 % % stuct array with fields: name; folder; date; bytes; isdir; datenum
 % % length is indicidive of how many .txt files are within folder
 
 %import all the files from a single subject into a structure
-dataFolder = 'U:\SMIL_PhD\euclideanVector\Data\Pilot01';
-fileStruct = fullfile(dataFolder, '*.txt');
+%{
+dataFolder = 'U:\SMIL_PhD\euclideanVector\Data\Pilot01'; 
+dataFolder = '/Users/jessica/Desktop/euclideanVector/Data/AS_position.exp'
+%}
+
+dataFolder = '/Users/jessica/Desktop/euclideanVector/Data/Pilot01';
+fileStruct = fullfile(dataFolder, '*.EXP');
 theFiles = dir(fileStruct);
 
 %import each task into a condition specific structure: fork hammer milk
-fileStructForkC1 = fullfile(dataFolder, '*C1_fork.txt');
+fileStructForkC1 = fullfile(dataFolder, '*C1_fork.EXP');
 theFilesForkC1 = dir(fileStructForkC1);
 
-fileStructForkC2 = fullfile(dataFolder, '*C2_fork.txt');
+fileStructForkC2 = fullfile(dataFolder, '*C2_fork.EXP');
 theFilesForkC2 = dir(fileStructForkC2);
 
-fileStructMilkC1 = fullfile(dataFolder, '*C1_milk.txt');
+fileStructMilkC1 = fullfile(dataFolder, '*C1_milk.EXP');
 theFilesMilkC1 = dir(fileStructMilkC1);
 
-fileStructMilkC2 = fullfile(dataFolder, '*C2_milk.txt');
+fileStructMilkC2 = fullfile(dataFolder, '*C2_milk.EXP');
 theFilesMilkC2 = dir(fileStructMilkC2);
 
-fileStructHammerC1 = fullfile(dataFolder, '*C1_hammer.txt');
+fileStructHammerC1 = fullfile(dataFolder, '*C1_hammer.EXP');
 theFilesHammerC1 = dir(fileStructHammerC1);
 
-fileStructHammerC2 = fullfile(dataFolder, '*C2_hammer.txt');
+fileStructHammerC2 = fullfile(dataFolder, '*C2_hammer.EXP');
 theFilesHammerC2 = dir(fileStructHammerC2);
 
 
@@ -80,11 +88,11 @@ for h = 1:length(theFilesHammerC2);
 %    fileHammerListC2{h} = fullFileNameHammerC2{h};
 end
 %import each condition into a seperate structure
-% % % fileStructCondition1 = fullfile(dataFolder, 'P1C1*.txt');
-% % % theFilesC1 = dir(fileStructCondition1);
-% % % 
-% % % fileStructCondition2 = fullfile(dataFolder, 'P1C2*.txt');
-% % % theFilesC2 = dir(fileStructCondition2);
+fileStructCondition1 = fullfile(dataFolder, 'P1C1*.txt');
+theFilesC1 = dir(fileStructCondition1);
+
+fileStructCondition2 = fullfile(dataFolder, 'P1C2*.txt');
+theFilesC2 = dir(fileStructCondition2);
 
 % for j = length(theFilesC1);
 %     cond1File{j} = theFilesC1(j).name;
@@ -97,4 +105,5 @@ end
 %     fullFileNameCond2{k} = fullfile(dataFolder,cond2File{k});
 %     fileCondList2{k} = fullFileNameCond2{k};
 % end
-
+%}
+end
